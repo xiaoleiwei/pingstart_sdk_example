@@ -75,22 +75,23 @@
 					ImageView iconImage = new ImageView(mContext);
 					ImageView coverImage = new ImageView(mContext);
 
-					//	Method downloadAndDisplayImage(String imageUrl, ImageView 
-					//imageView) will be implemented at the end of this PDF 
-					downloadAndDisplayImage(ad.getIcon_link(), iconImage);										downloadAndDisplayImage(ad.getPreview_link(), coverImage);
-				
+					//	Method downloadAndDisplayImage(String imageUrl, ImageView imageView) will be 						//	implemented at the end of this PDF 
+					downloadAndDisplayImage(ad.getIcon_link(), iconImage);
+					downloadAndDisplayImage(ad.getPreview_link(), coverImage);
+					
 					//	Add the ad to your layout
-					LinearLayout mainContainer = (LinearLayout)findViewById(R.id.v); 								mainContainer.addView(nativeAdContainer);
-				
-					// Register the native ad view with the native ad instance   									mAdsManager.registerNativeView(nativeAdContainer,new AdsClickListener()
+					LinearLayout mainContainer = (LinearLayout)findViewById(R.id.v); 		
+					mainContainer.addView(nativeAdContainer);
+					
+					// Register the native ad view with the native ad instance   	
+					mAdsManager.registerNativeView(nativeAdContainer,new AdsClickListener()
 						{
 						@Override
 						public void onError() {
 							// this function will be called when the ad fails to open.
 						}
-
-            					@Override
-           		 			public void onAdsClicked() {
+						@Override
+						public void onAdsClicked() {
 							// this function will be called when the ad opens successfully.
 						}
 					});
@@ -108,7 +109,6 @@
 				public void onLoadError() { 
 					/**
 					* This function will be called when SDK fails to load. */
-
 				}
 			}, Your-AdType);
 
