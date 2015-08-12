@@ -16,15 +16,10 @@
 #####4. Register the OptimizeService and OptimizeReceiver on the AndroidManafast.xml :
 
 		<service android:name="com.pingstart.adsdk.OptimizeService"/>
-
 		<receiver android:name="com.pingstart.adsdk.OptimizeReceiver" > 
-
 			<intent-filter>
-
 			<action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> 
-
 			</intent-filter>
-
 		</receiver>
 
 #####5. Add the following code at the top of your activity class in order to import the Ads SDK:
@@ -32,14 +27,14 @@
 		import com.pingstart.adsdk.AdsClickListener;
 		import com.pingstart.adsdk.AdsLoadListener;
 		import com.pingstart.adsdk.AdsManager;
-
+		
 		//Then, create a function that requests the PingStart ads:
 		private AdsManager mAdsManager;
-
+		
 		private void loadAds(){
 			mAdsManager = new AdsManager(this, {Your App ID}, {Your Slot ID});
 			mAdsManager.loadAds(new AdsLoadListener() {
-
+			
 				@Override
 				public void onLoadBannerSucceeded() {
 					/**
@@ -70,11 +65,11 @@
 					TextView titleLabel = new TextView(mContext);
 					titleLabel.setText(titleForAd);
 					nativeAdContainer.addView(titleLabel);
-
-					//	Load the cover image into an ImageView using an helper function 			
+					
+					//	Load the cover image into an ImageView using an helper function 	
 					ImageView iconImage = new ImageView(mContext);
 					ImageView coverImage = new ImageView(mContext);
-
+					
 					//	Method downloadAndDisplayImage(String imageUrl, ImageView imageView) will be 						//	implemented at the end of this PDF 
 					downloadAndDisplayImage(ad.getIcon_link(), iconImage);
 					downloadAndDisplayImage(ad.getPreview_link(), coverImage);
@@ -85,7 +80,7 @@
 					
 					// Register the native ad view with the native ad instance   	
 					mAdsManager.registerNativeView(nativeAdContainer,new AdsClickListener()
-						{
+					{
 						@Override
 						public void onError() {
 							// this function will be called when the ad fails to open.
@@ -96,7 +91,7 @@
 						}
 					});
 				}
-
+				
 				@Override
 				public void onLoadInterstitialSucceeded() { 
 					/**
@@ -104,16 +99,15 @@
 					*	you should call the showInterstitialAd().
 					*/ manager.showInterstitialAd();
 				}
-
+				
 				@Override
 				public void onLoadError() { 
 					/**
 					* This function will be called when SDK fails to load. */
 				}
 			}, Your-AdType);
-
 		}
-
+		
 		You could replace Your-AdType with 
 			* AdsManager.BANNER_AD		
 			* AdsManager.INTERSTITIAL_AD 
@@ -133,37 +127,20 @@
 
 		private void downloadAndDisplayImage(String imageUrl, final ImageView imageView) { 
 			RequestQueue imageRequestQueue = Volley.newRequestQueue(mContext); 			
-
 			ImageRequest imageRequest = new ImageRequest(imageUrl,new
 				Response.Listener<Bitmap>() {
-
+				
 					@Override
 					public void onResponse(Bitmap response) {
 						imageView.setImageBitmap(response);
 					}
-
+					
 				}, 0, 0, Config.RGB_565, new Response.ErrorListener() {
 					@Override
 					public void onErrorResponse(VolleyError error) {
 						imageView.setImageResource(R.drawable.default_image);
 				}
-
+				
 			});
-
 			imageRequestQueue.add(imageRequest);
 		}
-
-		
-#####8.If you want to see the sample code, please click  website   	https://github.com/PingStart
-
-
-
-
-
-
-
-
-
-
-
-
