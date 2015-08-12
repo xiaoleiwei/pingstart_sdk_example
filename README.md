@@ -1,8 +1,5 @@
 # PingStart_SDK_Example
 
-[PingStart Android SDK Example Project](http://pingstart.com)
-
-
 #####1.	You need to register on [PingStart](http://www.pingstart.com/login).
 
 #####2.	Creat your Ads Slot on the website to get your App ID and your Slot ID.
@@ -144,3 +141,6 @@
 			});
 			imageRequestQueue.add(imageRequest);
 		}
+		
+		
+If you still have any question, please feel free to contact us at: developer@pingstart.com :)
