@@ -26,8 +26,6 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
-
     }
 
     @Override
@@ -49,11 +47,13 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
     @Override
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
-        if (mAdsManager != null) {
-            mAdsManager.destroy();
+        if (mAdsManager == null) {
             mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
+        } else {
+            mAdsManager.unregisterNativeView();
+            mAdsManager.reLoadAd();
         }
 
     }

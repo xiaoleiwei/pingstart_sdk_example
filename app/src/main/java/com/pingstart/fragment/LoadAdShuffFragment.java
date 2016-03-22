@@ -81,8 +81,10 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                     @Override
                     public void onAdLoaded(Ad ad) {
                         setViewVisible(View.INVISIBLE);
-                        mLoadAds = mAdsManager.getBannerView();
-                        mAdViewBannerContainer.addView(mLoadAds);
+                        if (mAdsManager != null) {
+                            mLoadAds = mAdsManager.getBannerView();
+                            mAdViewBannerContainer.addView(mLoadAds);
+                        }
                     }
 
                     @Override
@@ -113,7 +115,9 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                     @Override
                     public void onAdLoaded(Ad ad) {
                         setViewVisible(View.INVISIBLE);
-                        mAdsManager.showInterstitial();
+                        if (mAdsManager != null) {
+                            mAdsManager.showInterstitial();
+                        }
                     }
 
                     @Override
@@ -161,7 +165,9 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                             nativeTitle.setText(title);
                             nativeDescription.setText(description);
                             ad.displayCoverImage(nativeCoverImage);
-                            mAdsManager.registerNativeView(mNativeContainView);
+                            if (mAdsManager != null) {
+                                mAdsManager.registerNativeView(mNativeContainView);
+                            }
                         }
                     }
 
@@ -195,7 +201,9 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
     @Override
     public void onDestroy() {
         mLoadAds = null;
-        mAdsManager.destroy();
+        if (mAdsManager != null) {
+            mAdsManager.destroy();
+        }
         super.onDestroy();
     }
 

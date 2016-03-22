@@ -26,8 +26,6 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL);
-
     }
 
     @Override
@@ -49,11 +47,13 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
     @Override
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
-        if (mAdsManager != null) {
-            mAdsManager.destroy();
-            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
+        if (mAdsManager == null) {
+            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
+        } else {
+            mAdsManager.unregisterNativeView();
+            mAdsManager.reLoadAd();
         }
 
     }
@@ -66,7 +66,9 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
 
     @Override
     public void onDestroy() {
-        mAdsManager.destroy();
+        if (mAdsManager != null) {
+            mAdsManager.destroy();
+        }
         super.onDestroy();
     }
 
@@ -78,9 +80,12 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
 
     @Override
     public void onAdLoaded(Ad ad) {
-        mLoadAds = mAdsManager.getBannerView();
-        mAdViewBannerContainer.addView(mLoadAds);
-        setViewVisible(View.INVISIBLE, View.INVISIBLE);
+        if (mAdsManager != null) {
+            mLoadAds = mAdsManager.getBannerView();
+            mAdViewBannerContainer.removeAllViews();
+            mAdViewBannerContainer.addView(mLoadAds);
+            setViewVisible(View.INVISIBLE, View.INVISIBLE);
+        }
     }
 
     @Override

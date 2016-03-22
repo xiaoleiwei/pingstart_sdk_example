@@ -28,7 +28,6 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID,DataUtils.ADS_PLACEMENT_ID_CPM,DataUtils.ADS_PLACEMENT_ID_FILL);
     }
 
     @Override
@@ -45,12 +44,14 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
     @Override
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
-
-        if (mAdsManager != null) {
-            mAdsManager.destroy();
-            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
+        if (mAdsManager == null) {
+            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
+        }
+        else {
+            mAdsManager.unregisterNativeView();
+            mAdsManager.reLoadAd();
         }
 
     }
@@ -80,7 +81,9 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
             nativeTitle.setText(title);
             ad.displayCoverImage(nativeCoverImage);
             mAdViewNativeContainer.setVisibility(View.VISIBLE);
-            mAdsManager.registerNativeView(mAdViewNativeContainer);
+            if (mAdsManager != null) {
+                mAdsManager.registerNativeView(mAdViewNativeContainer);
+            }
         }
     }
 
@@ -112,7 +115,9 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
 
     @Override
     public void onDestroy() {
-        mAdsManager.destroy();
+        if (mAdsManager != null) {
+            mAdsManager.destroy();
+        }
         super.onDestroy();
     }
 

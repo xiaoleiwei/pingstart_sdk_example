@@ -27,7 +27,6 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
     }
 
     @Override
@@ -43,13 +42,15 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     @Override
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
-        if (mAdsManager != null) {
-            mAdsManager.destroy();
+        if (mAdsManager == null) {
             //here we set the last param true, it means we will show our interstitial ad in our own way rather than the way that facebook does
             // ,so you even needn't register com.facebook.ads.InterstitialAdActivity in your AndroidManifest.
             mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL, true);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
+        } else {
+            mAdsManager.unregisterNativeView();
+            mAdsManager.reLoadAd();
         }
 
     }
@@ -71,7 +72,9 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     public void onAdLoaded(Ad ad) {
         if (getActivity() != null && !getActivity().isFinishing()) {
             setViewVisible(View.INVISIBLE, View.INVISIBLE);
-            mAdsManager.showInterstitial();
+            if (mAdsManager != null) {
+                mAdsManager.showInterstitial();
+            }
         }
     }
 
@@ -99,7 +102,9 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
 
     @Override
     public void onDestroy() {
-        mAdsManager.destroy();
+        if (mAdsManager != null) {
+            mAdsManager.destroy();
+        }
         super.onDestroy();
     }
 }
