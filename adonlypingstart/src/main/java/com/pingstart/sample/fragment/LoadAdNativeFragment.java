@@ -28,7 +28,6 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
     }
 
     @Override
@@ -46,9 +45,13 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
 
-        if (mAdsManager != null) {
+        if (mAdsManager == null) {
+            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
+        } else {
+            mAdsManager.unregisterNativeView();
+            mAdsManager.reLoadAd();
         }
 
     }
