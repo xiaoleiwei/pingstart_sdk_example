@@ -1,1 +1,1 @@
-include ':app', ':nativeadssample', ':adonlypingstart'
+include ':app', ':nativeadssample'
