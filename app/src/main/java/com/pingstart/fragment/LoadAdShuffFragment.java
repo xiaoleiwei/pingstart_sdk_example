@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -73,13 +72,13 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
             case DataUtils.BANNER_FIRST:
                 mAdsManager.setListener(new BannerListener() {
                     @Override
-                    public void onAdError() {
+                    public void onAdError(String s) {
                         setViewVisible(View.INVISIBLE);
                         Toast.makeText(getActivity(), R.string.load_fail_banner, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onAdLoaded(Ad ad) {
+                    public void onAdLoaded(AdManager adManager, Ad ad) {
                         setViewVisible(View.INVISIBLE);
                         if (mAdsManager != null) {
                             mLoadAds = mAdsManager.getBannerView();
@@ -107,13 +106,13 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                     }
 
                     @Override
-                    public void onAdError() {
+                    public void onAdError(String s) {
                         setViewVisible(View.INVISIBLE);
                         Toast.makeText(getActivity(), R.string.load_fail_inter, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onAdLoaded(Ad ad) {
+                    public void onAdLoaded(AdManager adManager, Ad ad) {
                         setViewVisible(View.INVISIBLE);
                         if (mAdsManager != null) {
                             mAdsManager.showInterstitial();
@@ -135,13 +134,13 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
             case DataUtils.NATIVE_THIRD:
                 mAdsManager.setListener(new NativeListener() {
                     @Override
-                    public void onAdError() {
+                    public void onAdError(String s) {
                         setViewVisible(View.INVISIBLE);
                         Toast.makeText(getActivity(), R.string.load_fail_native, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onAdLoaded(Ad ad) {
+                    public void onAdLoaded(AdManager adManager, Ad ad) {
                         mNativeContainView.setVisibility(View.VISIBLE);
                         setViewVisible(View.INVISIBLE);
 
@@ -206,6 +205,5 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
         }
         super.onDestroy();
     }
-
 
 }

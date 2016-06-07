@@ -7,16 +7,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pingstart.R;
 import com.pingstart.adsdk.AdManager;
 import com.pingstart.adsdk.InterstitialListener;
 import com.pingstart.adsdk.model.Ad;
-import com.pingstart.utils.CommonUtils;
 import com.pingstart.utils.DataUtils;
 
 public class LoadAdInterFragment extends Fragment implements OnClickListener, InterstitialListener {
@@ -40,19 +37,24 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setViewVisible(View.INVISIBLE, View.VISIBLE);
+    }
+
+    @Override
     public void onClick(View v) {
         setViewVisible(View.VISIBLE, View.INVISIBLE);
         if (mAdsManager == null) {
             //here we set the last param true, it means we will show our interstitial ad in our own way rather than the way that facebook does
             // ,so you even needn't register com.facebook.ads.InterstitialAdActivity in your AndroidManifest.
-            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL, true);
+            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID);
+//            mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL, true);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
         } else {
-            mAdsManager.unregisterNativeView();
             mAdsManager.reLoadAd();
         }
-
     }
 
     private void setViewVisible(int mProgressvisible, int mRefreshVisible) {
@@ -61,7 +63,7 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     }
 
     @Override
-    public void onAdError() {
+    public void onAdError(String s) {
         if (getActivity() != null && !getActivity().isFinishing()) {
             Toast.makeText(getActivity(), "Interstitial Erro", Toast.LENGTH_SHORT).show();
             setViewVisible(View.INVISIBLE, View.VISIBLE);
@@ -69,7 +71,7 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
     }
 
     @Override
-    public void onAdLoaded(Ad ad) {
+    public void onAdLoaded(AdManager adManager, Ad ad) {
         if (getActivity() != null && !getActivity().isFinishing()) {
             setViewVisible(View.INVISIBLE, View.INVISIBLE);
             if (mAdsManager != null) {
@@ -90,15 +92,17 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
 
     @Override
     public void onAdClosed() {
-        setViewVisible(View.INVISIBLE, View.VISIBLE);
         Toast.makeText(getActivity(), "Interstitial Closed", Toast.LENGTH_SHORT).show();
+        if (mAdsManager != null) {
+            mAdsManager.destroy();
+        }
+        setViewVisible(View.INVISIBLE, View.VISIBLE);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
-
 
     @Override
     public void onDestroy() {

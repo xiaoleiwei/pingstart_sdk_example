@@ -17,11 +17,11 @@ import com.pingstart.adsdk.model.Ad;
 import com.pingstart.utils.DataUtils;
 
 public class LoadAdBannerFragment extends Fragment implements BannerListener, OnClickListener {
-    private RelativeLayout mAdViewBannerContainer;
+    private AdManager mAdsManager;
     private View mLoadAds;
     private Button mRefreshButton;
     private RelativeLayout mLoadingLayout;
-    private AdManager mAdsManager;
+    private RelativeLayout mAdViewBannerContainer;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +39,9 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
         return view;
     }
 
-    private void setViewVisible(int mProgressvisible, int mButtonvisible) {
-        mLoadingLayout.setVisibility(mProgressvisible);
-        mRefreshButton.setVisibility(mButtonvisible);
+    private void setViewVisible(int progress_visible, int button_visible) {
+        mLoadingLayout.setVisibility(progress_visible);
+        mRefreshButton.setVisibility(button_visible);
     }
 
     @Override
@@ -52,10 +52,9 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
         } else {
-            mAdsManager.unregisterNativeView();
+            mAdsManager.destroy();
             mAdsManager.reLoadAd();
         }
-
     }
 
     @Override
@@ -68,18 +67,19 @@ public class LoadAdBannerFragment extends Fragment implements BannerListener, On
     public void onDestroy() {
         if (mAdsManager != null) {
             mAdsManager.destroy();
+            mAdsManager = null;
         }
         super.onDestroy();
     }
 
     @Override
-    public void onAdError() {
+    public void onAdError(String s) {
         setViewVisible(View.INVISIBLE, View.VISIBLE);
         Toast.makeText(getActivity(), "Banner Erro", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onAdLoaded(Ad ad) {
+    public void onAdLoaded(AdManager adManager, Ad ad) {
         if (mAdsManager != null) {
             mLoadAds = mAdsManager.getBannerView();
             mAdViewBannerContainer.removeAllViews();

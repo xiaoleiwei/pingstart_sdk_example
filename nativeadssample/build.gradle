@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.pingstart.sample"
@@ -17,11 +17,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:23.1.1'
     compile files('libs/volley.jar')
-    compile files('libs/AudienceNetwork.jar')
-    compile files('libs/PingStartSDK_v3.1.0.jar')
+    compile(name: 'AudienceNetwork', ext: 'aar')
+    compile files('libs/PingStartSDK_v3.1.1.jar')
+    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:recyclerview-v7:23.2.0'
 }

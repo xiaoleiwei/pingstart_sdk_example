@@ -31,7 +31,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 		initView();
 		initTabLine();
 		initDatas();
-
 	}
 
 	private void initTabLine() {
@@ -93,11 +92,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 		case R.id.shuffle_ad:
 			mViewPager.setCurrentItem(DataUtils.AD_SHUFFLE_FOUR, false);
 			break;
-
 		default:
 			break;
 		}
-
 	}
 
 }

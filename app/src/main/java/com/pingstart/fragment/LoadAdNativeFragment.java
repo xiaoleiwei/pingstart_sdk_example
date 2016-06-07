@@ -48,22 +48,20 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
             mAdsManager = new AdManager(getActivity(), DataUtils.ADS_APPID, DataUtils.ADS_SLOTID, DataUtils.ADS_PLACEMENT_ID_CPM, DataUtils.ADS_PLACEMENT_ID_FILL);
             mAdsManager.setListener(this);
             mAdsManager.loadAd();
-        }
-        else {
+        } else {
             mAdsManager.unregisterNativeView();
             mAdsManager.reLoadAd();
         }
-
     }
 
     @Override
-    public void onAdError() {
+    public void onAdError(String s) {
         setViewVisible(View.INVISIBLE, View.VISIBLE);
         Toast.makeText(getActivity(), "Native Erro", Toast.LENGTH_SHORT).show();
     }
 
     @Override
-    public void onAdLoaded(Ad ad) {
+    public void onAdLoaded(AdManager adManager, Ad ad) {
         setViewVisible(View.INVISIBLE, View.INVISIBLE);
         String titleForAd = ad.getAdCallToAction();
         String titleForAdButton = ad.getAdCallToAction();
@@ -112,7 +110,6 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
         super.onDestroyView();
     }
 
-
     @Override
     public void onDestroy() {
         if (mAdsManager != null) {
@@ -125,5 +122,4 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
         mLoadingLayout.setVisibility(mProgressvisible);
         mShowNative.setVisibility(mButtonvisible);
     }
-
 }
