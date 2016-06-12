@@ -1,1 +1,1 @@
-include ':PingStart_v3.1.1Sample', ':MultipleNativeAdsSample'
+include ':PingStart_v3.1.1Sample', ':MultipleNativeAdsSample', ':pingstart_v3.2.0sample'

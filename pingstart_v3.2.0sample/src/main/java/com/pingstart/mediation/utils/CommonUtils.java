@@ -1,9 +1,9 @@
-package com.pingstart.utils;
-
-import java.io.File;
+package com.pingstart.mediation.utils;
 
 import android.os.Environment;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class CommonUtils {
 

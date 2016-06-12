@@ -1,10 +1,11 @@
-package com.pingstart;
+package com.pingstart.mediation;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,13 +14,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pingstart.adapter.TabsViewPagerAdapter;
-import com.pingstart.utils.DataUtils;
+import com.pingstart.mediation.adapter.TabsViewPagerAdapter;
+import com.pingstart.mediation.utils.DataUtils;
 
 public class MainActivity extends FragmentActivity implements OnClickListener, OnPageChangeListener {
     private ViewPager mViewPager;
     private TextView mBanner;
-    private TextView mShuffle;
     private TextView mInterStitial;
     private TextView mNative;
     private ImageView ImageLineTab;
@@ -29,16 +29,17 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         initView();
-        initTabLine();
         initDatas();
+        initTabLine();
     }
 
     private void initTabLine() {
         Display display = getWindow().getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
-        mWidth = outMetrics.widthPixels / 4;
+        mWidth = outMetrics.widthPixels / 3;
         LayoutParams layoutParams = ImageLineTab.getLayoutParams();
         layoutParams.width = mWidth;
         ImageLineTab.setLayoutParams(layoutParams);
@@ -51,13 +52,11 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
 
     private void initView() {
         mBanner = (TextView) findViewById(R.id.banner_ad);
-        mShuffle = (TextView) findViewById(R.id.shuffle_ad);
         mInterStitial = (TextView) findViewById(R.id.interstitial_ad);
         mNative = (TextView) findViewById(R.id.native_ad);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         ImageLineTab = (ImageView) findViewById(R.id.image_line_tab);
         mBanner.setOnClickListener(this);
-        mShuffle.setOnClickListener(this);
         mInterStitial.setOnClickListener(this);
         mNative.setOnClickListener(this);
     }
@@ -89,9 +88,6 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
                 break;
             case R.id.native_ad:
                 mViewPager.setCurrentItem(DataUtils.AD_NATIVE_THIRD, false);
-                break;
-            case R.id.shuffle_ad:
-                mViewPager.setCurrentItem(DataUtils.AD_SHUFFLE_FOUR, false);
                 break;
             default:
                 break;

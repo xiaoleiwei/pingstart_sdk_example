@@ -1,4 +1,7 @@
-package com.pingstart.utils;
+package com.pingstart.mediation.utils;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -9,9 +12,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Date;
-
-import android.content.Context;
-import android.content.pm.ApplicationInfo;
 
 public class MyCrashHandler implements UncaughtExceptionHandler {
     private static final int MAX_CRASH_LOG_COUNT = 3;

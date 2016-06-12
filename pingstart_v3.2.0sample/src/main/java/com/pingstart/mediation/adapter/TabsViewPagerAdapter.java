@@ -1,14 +1,13 @@
-package com.pingstart.adapter;
-
-import com.pingstart.fragment.LoadAdInterFragment;
-import com.pingstart.fragment.LoadAdNativeFragment;
-import com.pingstart.fragment.LoadAdBannerFragment;
-import com.pingstart.fragment.LoadAdShuffFragment;
-import com.pingstart.utils.DataUtils;
+package com.pingstart.mediation.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import com.pingstart.mediation.fragment.LoadAdBannerFragment;
+import com.pingstart.mediation.fragment.LoadAdInterFragment;
+import com.pingstart.mediation.fragment.LoadAdNativeFragment;
+import com.pingstart.mediation.utils.DataUtils;
 
 public class TabsViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -18,19 +17,21 @@ public class TabsViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        Fragment fragment = null;
         switch (position) {
             case DataUtils.AD_BANNER_FIRST:
-                return new LoadAdBannerFragment();
+                fragment = new LoadAdBannerFragment();
+                break;
             case DataUtils.AD_INTERSTITIAL_SECOND:
-                return new LoadAdInterFragment();
+                fragment = new LoadAdInterFragment();
+                break;
             case DataUtils.AD_NATIVE_THIRD:
-                return new LoadAdNativeFragment();
-            case DataUtils.AD_SHUFFLE_FOUR:
-                return new LoadAdShuffFragment();
+                fragment = new LoadAdNativeFragment();
+                break;
             default:
                 break;
         }
-        return null;
+        return fragment;
     }
 
     @Override
