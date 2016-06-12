@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" filepath="$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PingStart_SDK_Example.iml" filepath="$PROJECT_DIR$/PingStart_SDK_Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStartSample.iml" filepath="$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStartSample.iml" />
+    </modules>
+  </component>
+</project>

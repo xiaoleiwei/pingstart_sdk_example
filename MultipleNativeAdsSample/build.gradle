@@ -26,8 +26,6 @@ android {
 
 dependencies {
     compile files('libs/volley.jar')
-    compile(name: 'AudienceNetwork', ext: 'aar')
     compile files('libs/PingStartSDK_v3.1.1.jar')
-    compile 'com.android.support:appcompat-v7:23.2.0'
-    compile 'com.android.support:recyclerview-v7:23.2.0'
+    compile 'com.facebook.android:audience-network-sdk:4.11.0'
 }
