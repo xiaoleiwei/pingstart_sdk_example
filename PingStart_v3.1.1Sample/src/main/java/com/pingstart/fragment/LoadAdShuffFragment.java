@@ -1,5 +1,6 @@
 package com.pingstart.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -12,12 +13,17 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.pingstart.R;
 import com.pingstart.adsdk.AdManager;
 import com.pingstart.adsdk.listener.BannerListener;
 import com.pingstart.adsdk.listener.InterstitialListener;
 import com.pingstart.adsdk.listener.NativeListener;
 import com.pingstart.adsdk.model.Ad;
+import com.pingstart.adsdk.utils.VolleyUtil;
 import com.pingstart.utils.CommonUtils;
 import com.pingstart.utils.DataUtils;
 
@@ -141,6 +147,9 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
 
                     @Override
                     public void onAdLoaded(AdManager adManager, Ad ad) {
+                        if (ad == null) {
+                            return;
+                        }
                         mNativeContainView.setVisibility(View.VISIBLE);
                         setViewVisible(View.INVISIBLE);
 
@@ -153,6 +162,7 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                         String titleForAd = ad.getAdCallToAction();
                         String titleForAdButton = ad.getAdCallToAction();
                         String title = ad.getTitle();
+                        String imgUrl = ad.getCoverImageUrl();
                         ImageView nativeCoverImage = (ImageView) mNativeContainView.findViewById(R.id.native_coverImage);
                         TextView nativeTitle = (TextView) mNativeContainView.findViewById(R.id.native_title);
                         TextView nativeDescription = (TextView) mNativeContainView.findViewById(R.id.native_description);
@@ -163,7 +173,7 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
                             nativeAdButton.setText(titleForAdButton);
                             nativeTitle.setText(title);
                             nativeDescription.setText(description);
-                            ad.displayCoverImage(nativeCoverImage);
+                            displayImg(nativeCoverImage, imgUrl);
                             if (mAdsManager != null) {
                                 mAdsManager.registerNativeView(mNativeContainView);
                             }
@@ -185,6 +195,30 @@ public class LoadAdShuffFragment extends Fragment implements OnClickListener {
             default:
                 break;
         }
+    }
+
+    private void displayImg(final ImageView iv, String imgUrl) {
+        if (TextUtils.isEmpty(imgUrl)) {
+            return;
+        }
+        RequestQueue queue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
+        ImageLoader loader = new ImageLoader(queue, new VolleyUtil.BitmapLruCache());
+        loader.get(imgUrl, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                if (imageContainer == null) {
+                    return;
+                }
+                Bitmap bitmap = imageContainer.getBitmap();
+                if (bitmap != null) {
+                    iv.setImageBitmap(bitmap);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+            }
+        });
     }
 
     private void setViewVisible(int mProgressvisible) {
