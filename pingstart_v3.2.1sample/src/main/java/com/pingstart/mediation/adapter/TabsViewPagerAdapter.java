@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.pingstart.mediation.fragment.LoadAdBannerFragment;
+import com.pingstart.mediation.fragment.LoadAdSearchAdsFragment;
 import com.pingstart.mediation.fragment.LoadAdInterFragment;
 import com.pingstart.mediation.fragment.LoadAdNativeFragment;
 import com.pingstart.mediation.utils.DataUtils;
@@ -27,6 +28,9 @@ public class TabsViewPagerAdapter extends FragmentPagerAdapter {
                 break;
             case DataUtils.AD_NATIVE_THIRD:
                 fragment = new LoadAdNativeFragment();
+                break;
+            case DataUtils.AD_HOTWORD_FOUR:
+                fragment = new LoadAdSearchAdsFragment();
                 break;
             default:
                 break;

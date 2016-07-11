@@ -22,6 +22,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
     private TextView mBanner;
     private TextView mInterStitial;
     private TextView mNative;
+    private TextView mHotWord;
     private ImageView ImageLineTab;
     private int mWidth;
 
@@ -39,7 +40,7 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         Display display = getWindow().getWindowManager().getDefaultDisplay();
         DisplayMetrics outMetrics = new DisplayMetrics();
         display.getMetrics(outMetrics);
-        mWidth = outMetrics.widthPixels / 3;
+        mWidth = outMetrics.widthPixels / 4;
         LayoutParams layoutParams = ImageLineTab.getLayoutParams();
         layoutParams.width = mWidth;
         ImageLineTab.setLayoutParams(layoutParams);
@@ -54,11 +55,13 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
         mBanner = (TextView) findViewById(R.id.banner_ad);
         mInterStitial = (TextView) findViewById(R.id.interstitial_ad);
         mNative = (TextView) findViewById(R.id.native_ad);
+        mHotWord = (TextView) findViewById(R.id.hotword);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         ImageLineTab = (ImageView) findViewById(R.id.image_line_tab);
         mBanner.setOnClickListener(this);
         mInterStitial.setOnClickListener(this);
         mNative.setOnClickListener(this);
+        mHotWord.setOnClickListener(this);
     }
 
     @Override
@@ -88,6 +91,9 @@ public class MainActivity extends FragmentActivity implements OnClickListener, O
                 break;
             case R.id.native_ad:
                 mViewPager.setCurrentItem(DataUtils.AD_NATIVE_THIRD, false);
+                break;
+            case R.id.hotword:
+                mViewPager.setCurrentItem(DataUtils.AD_HOTWORD_FOUR, false);
                 break;
             default:
                 break;

@@ -4,6 +4,7 @@
     <string name="banner_ad">BANNER</string>
     <string name="interstitial_ad">INTERSTITIAL</string>
     <string name="native_ad">NATIVE</string>
+    <string name="hotword">HOTWORD</string>
     <string name="shuffle_ad">SHUFFLE</string>
     <string name="loading_status">Requesting an ad...</string>
     <string name="load_native_fail">Loading advertising failure</string>

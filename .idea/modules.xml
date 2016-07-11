@@ -4,8 +4,8 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" filepath="$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" />
       <module fileurl="file://$PROJECT_DIR$/PingStart_SDK_Example.iml" filepath="$PROJECT_DIR$/PingStart_SDK_Example.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStartSample.iml" filepath="$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStartSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pingstart_v3.2.0sample/pingstart_v3.2.0sample.iml" filepath="$PROJECT_DIR$/pingstart_v3.2.0sample/pingstart_v3.2.0sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStart_v3.1.1Sample.iml" filepath="$PROJECT_DIR$/PingStart_v3.1.1Sample/PingStart_v3.1.1Sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingstart_v3.2.1sample/pingstart_v3.2.0sample.iml" filepath="$PROJECT_DIR$/pingstart_v3.2.1sample/pingstart_v3.2.0sample.iml" />
     </modules>
   </component>
 </project>
