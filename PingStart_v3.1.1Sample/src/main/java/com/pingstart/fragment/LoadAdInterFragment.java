@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.pingstart.R;
 import com.pingstart.adsdk.AdManager;
-import com.pingstart.adsdk.InterstitialListener;
+import com.pingstart.adsdk.listener.InterstitialListener;
 import com.pingstart.adsdk.model.Ad;
 import com.pingstart.utils.DataUtils;
 

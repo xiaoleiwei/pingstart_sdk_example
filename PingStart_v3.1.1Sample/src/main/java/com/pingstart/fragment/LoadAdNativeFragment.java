@@ -1,5 +1,6 @@
 package com.pingstart.fragment;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -13,10 +14,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.Volley;
 import com.pingstart.R;
 import com.pingstart.adsdk.AdManager;
-import com.pingstart.adsdk.NativeListener;
+import com.pingstart.adsdk.listener.NativeListener;
 import com.pingstart.adsdk.model.Ad;
+import com.pingstart.adsdk.utils.VolleyUtil;
 import com.pingstart.utils.DataUtils;
 
 public class LoadAdNativeFragment extends Fragment implements NativeListener, OnClickListener {
@@ -50,6 +56,7 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
             mAdsManager.loadAd();
         } else {
             mAdsManager.unregisterNativeView();
+            mAdsManager.destroy();
             mAdsManager.reLoadAd();
         }
     }
@@ -62,11 +69,15 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
 
     @Override
     public void onAdLoaded(AdManager adManager, Ad ad) {
+        if (ad == null) {
+            return;
+        }
         setViewVisible(View.INVISIBLE, View.INVISIBLE);
         String titleForAd = ad.getAdCallToAction();
         String titleForAdButton = ad.getAdCallToAction();
         String description = ad.getDescription();
         String title = ad.getTitle();
+        String imgUrl = ad.getCoverImageUrl();
         ImageView nativeCoverImage = (ImageView) mAdViewNativeContainer.findViewById(R.id.native_coverImage);
         TextView nativeTitle = (TextView) mAdViewNativeContainer.findViewById(R.id.native_title);
         TextView nativeDescription = (TextView) mAdViewNativeContainer.findViewById(R.id.native_description);
@@ -77,12 +88,36 @@ public class LoadAdNativeFragment extends Fragment implements NativeListener, On
             nativeAdButton.setText(titleForAdButton);
             nativeDescription.setText(description);
             nativeTitle.setText(title);
-            ad.displayCoverImage(nativeCoverImage);
+            displayImg(nativeCoverImage, imgUrl);
             mAdViewNativeContainer.setVisibility(View.VISIBLE);
             if (mAdsManager != null) {
                 mAdsManager.registerNativeView(mAdViewNativeContainer);
             }
         }
+    }
+
+    private void displayImg(final ImageView iv, String imgUrl) {
+        if (TextUtils.isEmpty(imgUrl)) {
+            return;
+        }
+        RequestQueue queue = Volley.newRequestQueue(this.getActivity().getApplicationContext());
+        ImageLoader loader = new ImageLoader(queue, new VolleyUtil.BitmapLruCache());
+        loader.get(imgUrl, new ImageLoader.ImageListener() {
+            @Override
+            public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                if (imageContainer == null) {
+                    return;
+                }
+                Bitmap bitmap = imageContainer.getBitmap();
+                if (bitmap != null) {
+                    iv.setImageBitmap(bitmap);
+                }
+            }
+
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+            }
+        });
     }
 
     @Override

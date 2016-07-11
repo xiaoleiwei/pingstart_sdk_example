@@ -1,7 +1,5 @@
 package com.pingstart.fragment;
 
-import java.util.Random;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
@@ -16,12 +14,14 @@ import android.widget.Toast;
 
 import com.pingstart.R;
 import com.pingstart.adsdk.AdManager;
-import com.pingstart.adsdk.BannerListener;
-import com.pingstart.adsdk.InterstitialListener;
-import com.pingstart.adsdk.NativeListener;
+import com.pingstart.adsdk.listener.BannerListener;
+import com.pingstart.adsdk.listener.InterstitialListener;
+import com.pingstart.adsdk.listener.NativeListener;
 import com.pingstart.adsdk.model.Ad;
 import com.pingstart.utils.CommonUtils;
 import com.pingstart.utils.DataUtils;
+
+import java.util.Random;
 
 public class LoadAdShuffFragment extends Fragment implements OnClickListener {
     private RelativeLayout mAdViewBannerContainer;
