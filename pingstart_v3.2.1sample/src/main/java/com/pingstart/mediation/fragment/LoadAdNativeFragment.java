@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pingstart.adsdk.NativeListener;
+import com.pingstart.adsdk.listener.NativeListener;
 import com.pingstart.adsdk.mediation.PingStartNative;
 import com.pingstart.adsdk.model.BaseNativeAd;
 

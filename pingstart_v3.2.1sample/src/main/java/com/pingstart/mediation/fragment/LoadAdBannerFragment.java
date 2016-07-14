@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.pingstart.adsdk.BannerListener;
+import com.pingstart.adsdk.listener.BannerListener;
 import com.pingstart.adsdk.mediation.PingStartBanner;
 
 import com.pingstart.mediation.R;

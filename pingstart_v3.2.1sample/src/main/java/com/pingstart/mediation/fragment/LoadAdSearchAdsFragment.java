@@ -18,11 +18,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.pingstart.adsdk.SearchAdsListener;
+import com.pingstart.adsdk.listener.SearchAdsListener;
 import com.pingstart.adsdk.mediation.PingStartSearch;
 import com.pingstart.adsdk.model.SearchAds;
-import com.pingstart.adsdk.util.LogUtils;
-import com.pingstart.adsdk.util.VolleyUtil;
+
+import com.pingstart.adsdk.utils.LogUtils;
+import com.pingstart.adsdk.utils.VolleyUtil;
 import com.pingstart.mediation.R;
 
 import java.util.ArrayList;
