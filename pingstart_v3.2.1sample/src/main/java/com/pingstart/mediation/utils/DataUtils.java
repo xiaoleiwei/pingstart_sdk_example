@@ -4,10 +4,10 @@ package com.pingstart.mediation.utils;
  * These all ids are for test ,please replace with your own ids
  */
 public class DataUtils {
-    public static final String TEST_ADS_APPID = "1004";
-    public static final String TEST_ADS_SLOTID_BANNER = "1000498";
-    public static final String TEST_ADS_SLOTID_INTERSTITIAL = "1000497";
-    public static final String TEST_ADS_SLOTID_NATIVE = "1000483";
+    public static final String TEST_ADS_APPID = "5079";
+    public static final String TEST_ADS_SLOTID_BANNER = "1000220";
+    public static final String TEST_ADS_SLOTID_INTERSTITIAL = "1000221";
+    public static final String TEST_ADS_SLOTID_NATIVE = "1000223";
     public static final String TEST_ADS_PLACEMENT_ID_CPM = "1560511240859053_1688903031353206";
     public static final String TEST_ADS_PLACEMENT_ID_FILL = "1560511240859053_1688902994686543";
     public static final int AD_BANNER_FIRST = 0;
