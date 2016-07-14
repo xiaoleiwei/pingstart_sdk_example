@@ -28,7 +28,7 @@ public class LoadAdInterFragment extends Fragment implements OnClickListener, In
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View mInterView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_interstitial, null, false);
+        View mInterView = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_interstitial, container, false);
         mLoadingLayout = (RelativeLayout) mInterView.findViewById(R.id.fresh_ad_show);
         mShowInterstitial = (Button) mInterView.findViewById(R.id.show_interstitial);
         mShowInterstitial.setOnClickListener(this);

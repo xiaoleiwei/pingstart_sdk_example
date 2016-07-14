@@ -40,7 +40,6 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
     private ViewGroup mLytSearch;
     private GridView mLytHotWord;
     private Button mBtnHotWord;
-    private EditText mEdtSearch;
 
     private List<SearchAds> mHotWords;
     private List<Integer> mIndex = new ArrayList<>();
@@ -78,8 +77,6 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
         mBtnHotWord = (Button) view.findViewById(R.id.btn_hotword);
         mBtnHotWord.setOnClickListener(this);
 
-        view.findViewById(R.id.btn_search).setOnClickListener(this);
-        mEdtSearch = (EditText) view.findViewById(R.id.edt_search);
         mLytSearch = (ViewGroup) view.findViewById(R.id.lyt_search);
         mLytSearch.setVisibility(View.GONE);
     }
@@ -94,12 +91,6 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
         switch (v.getId()) {
             case R.id.btn_hotword:
                 loadHotWord();
-                break;
-            case R.id.btn_search:
-                if (mPingStartWord != null) {
-                    //自定义搜索
-                    mPingStartWord.searchCustomKeyword(mContext, mEdtSearch.getText().toString());
-                }
                 break;
         }
     }
