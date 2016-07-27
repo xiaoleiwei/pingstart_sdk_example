@@ -3,9 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" filepath="$PROJECT_DIR$/MultipleNativeAdsSample/MultipleNativeAdsSample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PingStart_v3.1.2Sample/PingStart_v3.1.1Sample.iml" filepath="$PROJECT_DIR$/PingStart_v3.1.2Sample/PingStart_v3.1.1Sample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pingstart_sdk_example.iml" filepath="$PROJECT_DIR$/pingstart_sdk_example.iml" />
-      <module fileurl="file://$PROJECT_DIR$/pingstart_v3.2.1sample/pingstart_v3.2.1sample.iml" filepath="$PROJECT_DIR$/pingstart_v3.2.1sample/pingstart_v3.2.1sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PingStart_SDK_Example.iml" filepath="$PROJECT_DIR$/PingStart_SDK_Example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PingStart_v3.1.2Sample/PingStart_v3.1.2Sample.iml" filepath="$PROJECT_DIR$/PingStart_v3.1.2Sample/PingStart_v3.1.2Sample.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pingstart_v3.2.2sample/pingstart_v3.2.1sample.iml" filepath="$PROJECT_DIR$/pingstart_v3.2.2sample/pingstart_v3.2.1sample.iml" />
     </modules>
   </component>
 </project>
