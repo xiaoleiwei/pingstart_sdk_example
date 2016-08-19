@@ -1,10 +1,9 @@
-package com.pingstart.mediation.fragment;
+package com.pingstart.mediation;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,32 +20,28 @@ import android.widget.TextView;
 import com.pingstart.adsdk.listener.SearchAdsListener;
 import com.pingstart.adsdk.mediation.PingStartSearch;
 import com.pingstart.adsdk.model.SearchAds;
-
 import com.pingstart.adsdk.utils.LogUtils;
 import com.pingstart.adsdk.utils.VolleyUtil;
-import com.pingstart.mediation.R;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * Created by badguy on 16-6-29.
- */
-public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
+public class HotWordActivity extends Activity implements AdapterView.OnItemClickListener, View.OnClickListener {
+
+    private static final String TAG = HotWordActivity.class.getSimpleName();
 
     private static final int RANDOM_SIZE = 9;
 
-    private ViewGroup mLytSearch;
     private GridView mLytHotWord;
-    private Button mBtnHotWord;
+    private Button mBtnSearch;
+    private EditText mEdtSearch;
 
     private List<SearchAds> mHotWords;
     private List<Integer> mIndex = new ArrayList<>();
     private PingStartSearch mPingStartWord;
     private boolean hasImage = true;
 
-    private Context mContext;
 
     private int[] mBackgroundColors = new int[]{
             Color.LTGRAY, Color.BLUE,
@@ -57,46 +52,40 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
     };
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = getActivity();
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_hot_word, container, false);
+        setContentView(R.layout.activity_hot_word);
+        loadHotWord();
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        mLytHotWord = (GridView) view.findViewById(R.id.lyt_hotword);
+    public void onContentChanged() {
+        mLytHotWord = (GridView) findViewById(R.id.lyt_hotword);
         mLytHotWord.setOnItemClickListener(this);
 
-        mBtnHotWord = (Button) view.findViewById(R.id.btn_hotword);
-        mBtnHotWord.setOnClickListener(this);
-
-        mLytSearch = (ViewGroup) view.findViewById(R.id.lyt_search);
-        mLytSearch.setVisibility(View.GONE);
+        mBtnSearch = (Button) findViewById(R.id.btn_search);
+        mBtnSearch.setOnClickListener(this);
+        mEdtSearch = (EditText) findViewById(R.id.edt_search);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogUtils.d("Search", "click position:" + position + " index = " + mIndex.get(position));
+        LogUtils.d(TAG, "click position:" + position + " index = " + mIndex.get(position));
+//        mPingStartWord.onSearchAdsClick(this, mSearchAdses.get(mIndex.get(position)));
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_hotword:
-                loadHotWord();
-                break;
+        if (v == mBtnSearch) {
+            if (mPingStartWord != null) {
+                String keyword = mEdtSearch.getText().toString();
+                mPingStartWord.searchCustomKeyword(this, keyword);
+            }
         }
     }
 
     private void loadHotWord() {
-        mPingStartWord = new PingStartSearch(mContext, "5079", "1000596");
+        mPingStartWord = new PingStartSearch(this, "5079", "1000596");
         mPingStartWord.setAdListener(new SearchAdsListener() {
             @Override
             public void onAdFailed(String error) {
@@ -105,8 +94,6 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
 
             @Override
             public void onAdLoaded(List<SearchAds> hotWords) {
-                mLytSearch.setVisibility(View.VISIBLE);
-                mBtnHotWord.setVisibility(View.GONE);
 
                 mHotWords = hotWords;
                 if (mIndex != null) {
@@ -175,7 +162,7 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(mContext);
+                LayoutInflater inflater = LayoutInflater.from(HotWordActivity.this);
                 if (hasImage) {
                     convertView = inflater.inflate(R.layout.item_hot_word_with_image, parent, false);
                 } else {
@@ -190,7 +177,7 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
             SearchAds word = mHotWords.get(mIndex.get(position));
             if (hasImage) {
                 String imgUrl = word.getUrlImage();
-                VolleyUtil.loadImage(mContext, holder.imageView, imgUrl);
+                VolleyUtil.loadImage(HotWordActivity.this, holder.imageView, imgUrl);
                 holder.txtWithImage.setText(word.getTitle());
             } else {
                 Random random = new Random();
@@ -198,9 +185,9 @@ public class LoadAdSearchAdsFragment extends Fragment implements AdapterView.OnI
                 holder.txtWithoutImage.setText(word.getTitle());
             }
             //注册点击
-            mPingStartWord.registerSearchAdsClickListener(mContext, convertView, word);
+            mPingStartWord.registerSearchAdsClickListener(HotWordActivity.this, convertView, word);
             //注册展示
-            mPingStartWord.registerSearchAdsImpression(mContext, word);
+            mPingStartWord.registerSearchAdsImpression(HotWordActivity.this, word);
             return convertView;
         }
 
