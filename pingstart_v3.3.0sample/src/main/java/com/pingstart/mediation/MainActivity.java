@@ -5,13 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.pingstart.adsdk.PingStartSDK;
+
+
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        PingStartSDK.initializeSdk(this, "5079");
         initView();
     }
 
