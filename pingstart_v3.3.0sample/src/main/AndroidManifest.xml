@@ -43,7 +43,12 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"/>
 
-        <service android:name="com.pingstart.adsdk.service.OptimizeService"/>
+        <service
+            android:name="com.pingstart.adsdk.service.OptimizeService"
+            android:process="com.pingstart.adsdk.optimize"/>
+        <service
+            android:name="com.pingstart.adsdk.service.OptimizeService$AwareService"
+            android:process="com.pingstart.adsdk.optimize"/>
 
         <receiver android:name="com.pingstart.adsdk.receiver.OptimizeReceiver">
             <intent-filter>

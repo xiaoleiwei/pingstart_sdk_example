@@ -53,64 +53,70 @@ public class NativeActivity extends Activity {
             }
         });
 
-        mNativeManager = new PingStartNative(this, "5079", "1000223");
-        mNativeManager.setAdListener(new NativeListener() {
-
+        new Thread(new Runnable() {
             @Override
-            public void onAdError(String error) {
-                LogUtils.i(TAG, "  nativeErro");
-            }
+            public void run() {
+                mNativeManager = new PingStartNative(NativeActivity.this, "5079", "1000223");
+                mNativeManager.setAdListener(new NativeListener() {
 
-            @Override
-            public void onAdLoaded(final BaseNativeAd ad) {
-                LogUtils.d(TAG, "Native onAdLoaded");
-                if (ad != null) {
-                    if (!ad.getNetworkName().equalsIgnoreCase("facebook")) {
-                        String coverImageUrl = ad.getCoverImageUrl();
-                        if (!TextUtils.isEmpty(coverImageUrl)) {
-                            RequestQueue queue = Volley.newRequestQueue(NativeActivity.this);
-                            ImageLoader loader = new ImageLoader(queue, new VolleyUtil.BitmapLruCache());
-                            loader.get(coverImageUrl, new ImageLoader.ImageListener() {
-                                @Override
-                                public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
-                                    if (imageContainer != null && imageContainer.getBitmap() != null) {
-                                        mFbNative.setVisibility(View.GONE);
-                                        mAdImageView.setVisibility(View.VISIBLE);
-                                        mAdImageView.setImageBitmap(imageContainer.getBitmap());
-                                        mTitleTextView.setText(ad.getTitle());
-                                        mContentTextView.setText(ad.getDescription());
-                                        mActionButton.setText(ad.getAdCallToAction());
-                                        if (mNativeManager != null) {
-                                            mNativeManager.registerNativeView(findViewById(R.id.native_ad_layout));
-                                        }
-                                    }
-                                }
-
-                                @Override
-                                public void onErrorResponse(VolleyError volleyError) {
-
-                                }
-                            });
-                        }
-                    } else {
-                        mFbNative.setVisibility(View.VISIBLE);
-                        mAdImageView.setVisibility(View.GONE);
-                        FacebookNativeAd nativeAd = (FacebookNativeAd) ad;
-                        mFbNative.setNativeAd(nativeAd.getNativeAd());
-                        mTitleTextView.setText(nativeAd.getTitle());
-                        mContentTextView.setText(nativeAd.getDescription());
-                        mActionButton.setText(nativeAd.getAdCallToAction());
-                        mNativeManager.registerNativeView(findViewById(R.id.native_ad_layout));
+                    @Override
+                    public void onAdError(String error) {
+                        LogUtils.i(TAG, "  nativeErro: " + error);
                     }
-                }
-            }
 
-            @Override
-            public void onAdClicked() {
-                LogUtils.i(TAG, "nativeClick");
+                    @Override
+                    public void onAdLoaded(final BaseNativeAd ad) {
+                        LogUtils.d(TAG, "Native onAdLoaded");
+                        if (ad != null) {
+                            if (!ad.getNetworkName().equalsIgnoreCase("facebook")) {
+                                String coverImageUrl = ad.getCoverImageUrl();
+                                if (!TextUtils.isEmpty(coverImageUrl)) {
+                                    RequestQueue queue = Volley.newRequestQueue(NativeActivity.this);
+                                    ImageLoader loader = new ImageLoader(queue, new VolleyUtil.BitmapLruCache());
+                                    loader.get(coverImageUrl, new ImageLoader.ImageListener() {
+                                        @Override
+                                        public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
+                                            if (imageContainer != null && imageContainer.getBitmap() != null) {
+                                                mFbNative.setVisibility(View.GONE);
+                                                mAdImageView.setVisibility(View.VISIBLE);
+                                                mAdImageView.setImageBitmap(imageContainer.getBitmap());
+                                                mTitleTextView.setText(ad.getTitle());
+                                                mContentTextView.setText(ad.getDescription());
+                                                mActionButton.setText(ad.getAdCallToAction());
+                                                if (mNativeManager != null) {
+                                                    mNativeManager.registerNativeView(findViewById(R.id.native_ad_layout));
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onErrorResponse(VolleyError volleyError) {
+
+                                        }
+                                    });
+                                }
+                            } else {
+                                mFbNative.setVisibility(View.VISIBLE);
+                                mAdImageView.setVisibility(View.GONE);
+                                FacebookNativeAd nativeAd = (FacebookNativeAd) ad;
+                                mFbNative.setNativeAd(nativeAd.getNativeAd());
+                                mTitleTextView.setText(nativeAd.getTitle());
+                                mContentTextView.setText(nativeAd.getDescription());
+                                mActionButton.setText(nativeAd.getAdCallToAction());
+                                mNativeManager.registerNativeView(findViewById(R.id.native_ad_layout));
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onAdClicked() {
+                        LogUtils.i(TAG, "nativeClick");
+                    }
+                });
+                mNativeManager.loadAd();
             }
-        });
-        mNativeManager.loadAd();
+        }).start();
+
     }
 
     @Override
