@@ -1,8 +1,10 @@
 package com.pingstart.mediation;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,8 +18,6 @@ import com.facebook.ads.MediaView;
 import com.pingstart.adsdk.listener.NativeListener;
 import com.pingstart.adsdk.mediation.PingStartNative;
 import com.pingstart.adsdk.model.BaseNativeAd;
-import com.pingstart.adsdk.utils.LogUtils;
-import com.pingstart.adsdk.utils.VolleyUtil;
 import com.pingstart.mobileads.FacebookNativeAd;
 
 /**
@@ -37,7 +37,7 @@ public class NativeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_native);
 
         mAdImageView = (ImageView) findViewById(R.id.ad_image);
@@ -61,18 +61,28 @@ public class NativeActivity extends Activity {
 
                     @Override
                     public void onAdError(String error) {
-                        LogUtils.i(TAG, "  nativeErro: " + error);
+                        Log.i(TAG, "  nativeErro: " + error);
                     }
 
                     @Override
                     public void onAdLoaded(final BaseNativeAd ad) {
-                        LogUtils.d(TAG, "Native onAdLoaded");
+                        Log.d(TAG, "Native onAdLoaded");
                         if (ad != null) {
                             if (!ad.getNetworkName().equalsIgnoreCase("facebook")) {
                                 String coverImageUrl = ad.getCoverImageUrl();
                                 if (!TextUtils.isEmpty(coverImageUrl)) {
                                     RequestQueue queue = Volley.newRequestQueue(NativeActivity.this);
-                                    ImageLoader loader = new ImageLoader(queue, new VolleyUtil.BitmapLruCache());
+                                    ImageLoader loader = new ImageLoader(queue, new ImageLoader.ImageCache() {
+                                        @Override
+                                        public Bitmap getBitmap(String s) {
+                                            return null;
+                                        }
+
+                                        @Override
+                                        public void putBitmap(String s, Bitmap bitmap) {
+
+                                        }
+                                    });
                                     loader.get(coverImageUrl, new ImageLoader.ImageListener() {
                                         @Override
                                         public void onResponse(ImageLoader.ImageContainer imageContainer, boolean b) {
@@ -110,7 +120,7 @@ public class NativeActivity extends Activity {
 
                     @Override
                     public void onAdClicked() {
-                        LogUtils.i(TAG, "nativeClick");
+                        Log.i(TAG, "nativeClick");
                     }
                 });
                 mNativeManager.loadAd();

@@ -1,24 +1,17 @@
 package com.pingstart.mediation;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.facebook.ads.MediaView;
 
 import com.pingstart.adsdk.listener.MultipleListener;
 import com.pingstart.adsdk.mediation.PingStartMultiple;
-import com.pingstart.adsdk.utils.LogUtils;
 import com.pingstart.adsdk.model.BaseNativeAd;
-
-import com.pingstart.mobileads.FacebookNativeAd;
+import com.pingstart.mediation.adapter.AdsAdapter;
 
 import java.util.List;
 
@@ -29,73 +22,49 @@ public class MultiActivity extends Activity {
 
     private static final String TAG = MultiActivity.class.getSimpleName();
 
-    private Context mContext;
-
-    private RelativeLayout mAdsLayout;
-    private LinearLayout mAdsContainer;
     private PingStartMultiple mNativeAdsManager;
+    private LinearLayoutManager mLayoutManager;
+    private AdsAdapter mAdsAdapter;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.d(TAG, "onCreate");
+        Log.d(TAG, "onCreate");
 
         setContentView(R.layout.activity_multi);
 
-        mContext = this;
         findViewById(R.id.btn_multi_ad).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mNativeAdsManager.unregisterNativeView();
-                mAdsContainer.removeAllViews();
                 mNativeAdsManager.reLoadAd();
             }
         });
 
-        mAdsContainer = (LinearLayout) findViewById(R.id.ads_container);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyvew_ads_container);
+        mLayoutManager = new LinearLayoutManager(MultiActivity.this);
+        mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
         mNativeAdsManager = new PingStartMultiple(this, "5079", "1000953", 10);
         mNativeAdsManager.setListener(new MultipleListener() {
             @Override
             public void onAdLoaded(List<BaseNativeAd> ads) {
-                for (int i = 0; i < ads.size(); i++) {
-                    BaseNativeAd ad = ads.get(i);
-                    if (ad != null) {
-                        LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                        mAdsLayout = (RelativeLayout) inflater.inflate(R.layout.multi_native_ad_layout, null);
-                        TextView titleView = (TextView) mAdsLayout.findViewById(R.id.native_title);
-                        TextView contentView = (TextView) mAdsLayout.findViewById(R.id.native_description);
-                        TextView actionView = (TextView) mAdsLayout.findViewById(R.id.native_titleForAdButton);
-                        ImageView imageView = (ImageView) mAdsLayout.findViewById(R.id.native_coverImage);
-                        MediaView mediaView = (MediaView) mAdsLayout.findViewById(R.id.fb_native);
-                        if (ad.getNetworkName().equalsIgnoreCase("facebook")) {
-                            imageView.setVisibility(View.GONE);
-                            mediaView.setVisibility(View.VISIBLE);
-                            FacebookNativeAd nativeAd = (FacebookNativeAd) ad;
-                            mediaView.setNativeAd(nativeAd.getNativeAd());
-                        } else {
-                            imageView.setVisibility(View.VISIBLE);
-                            mediaView.setVisibility(View.GONE);
-                            ad.displayCoverImage(MultiActivity.this, imageView);
-                        }
-                        titleView.setText(ad.getTitle());
-                        contentView.setText(ad.getDescription());
-                        actionView.setText(ad.getAdCallToAction());
-                        if (mNativeAdsManager != null) {
-                            mNativeAdsManager.registerNativeView(ad, actionView);
-                        }
-                        mAdsContainer.addView(mAdsLayout);
-                    }
+                if (ads != null) {
+                    mAdsAdapter = new AdsAdapter(MultiActivity.this, ads, mNativeAdsManager);
+                    mRecyclerView.setAdapter(mAdsAdapter);
                 }
             }
 
             @Override
             public void onAdError(String error) {
-                LogUtils.d(TAG, "onAdError :" + error);
+                Log.d(TAG, "onAdError :" + error);
             }
 
             @Override
             public void onAdClicked() {
-                Toast.makeText(mContext, "onAdClicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MultiActivity.this, "onAdClicked", Toast.LENGTH_SHORT).show();
             }
         });
         mNativeAdsManager.loadAd();
@@ -104,13 +73,13 @@ public class MultiActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        LogUtils.d(TAG, "onResume");
+        Log.d(TAG, "onResume");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        LogUtils.d(TAG, "onDestroy");
+        Log.d(TAG, "onDestroy");
         if (mNativeAdsManager != null) {
             mNativeAdsManager.destroy();
             mNativeAdsManager = null;

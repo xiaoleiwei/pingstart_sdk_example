@@ -2,12 +2,12 @@ package com.pingstart.mediation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.pingstart.adsdk.listener.BannerListener;
 import com.pingstart.adsdk.mediation.PingStartBanner;
-import com.pingstart.adsdk.utils.LogUtils;
 
 /**
  * Created by base on 2016/6/1.
@@ -22,7 +22,7 @@ public class BannerActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.i(TAG, "onCreate");
+        Log.i(TAG, "onCreate");
 
         setContentView(R.layout.activity_banner);
 
@@ -40,19 +40,19 @@ public class BannerActivity extends Activity {
 
             @Override
             public void onAdError(String error) {
-                LogUtils.i(TAG, "  bannerErro");
+                Log.i(TAG, "  bannerErro");
             }
 
             @Override
             public void onAdLoaded(View view) {
-                LogUtils.i(TAG, "Banner onAdLoaded");
+                Log.i(TAG, "Banner onAdLoaded");
                 mBannerFrameLayout.removeAllViews();
                 mBannerFrameLayout.addView(view);
             }
 
             @Override
             public void onAdClicked() {
-                LogUtils.i(TAG, "bannerClick");
+                Log.i(TAG, "bannerClick");
             }
         });
         mBannerManager.loadBanner();

@@ -2,11 +2,11 @@ package com.pingstart.mediation;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.pingstart.adsdk.listener.InterstitialListener;
 import com.pingstart.adsdk.mediation.PingStartInterstitial;
-import com.pingstart.adsdk.utils.LogUtils;
 
 /**
  * Created by base on 2016/6/1.
@@ -20,7 +20,7 @@ public class InterActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtils.i(TAG, "onCreate");
+        Log.i(TAG, "onCreate");
         setContentView(R.layout.activity_inter);
 
         showInterAD();
@@ -48,18 +48,18 @@ public class InterActivity extends Activity {
 
             @Override
             public void onAdError(String error) {
-                LogUtils.i(TAG, "  interErro");
+                Log.i(TAG, "  interErro");
             }
 
             @Override
             public void onAdLoaded() {
-                LogUtils.i(TAG, "Inter onAdLoaded");
+                Log.i(TAG, "Inter onAdLoaded");
                 mInterManager.showAd();
             }
 
             @Override
             public void onAdClicked() {
-                LogUtils.i(TAG, "interClick");
+                Log.i(TAG, "interClick");
             }
         });
         mInterManager.loadAd();

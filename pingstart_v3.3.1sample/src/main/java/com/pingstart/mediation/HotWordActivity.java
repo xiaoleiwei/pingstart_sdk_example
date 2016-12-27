@@ -1,7 +1,7 @@
 package com.pingstart.mediation;
 
 import android.app.Activity;
-import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,11 +17,14 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.pingstart.adsdk.listener.SearchAdsListener;
 import com.pingstart.adsdk.mediation.PingStartSearch;
 import com.pingstart.adsdk.model.SearchAds;
-import com.pingstart.adsdk.utils.LogUtils;
-import com.pingstart.adsdk.utils.VolleyUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +73,7 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        LogUtils.d(TAG, "click position:" + position + " index = " + mIndex.get(position));
+        Log.d(TAG, "click position:" + position + " index = " + mIndex.get(position));
 //        mPingStartWord.onSearchAdsClick(this, mSearchAdses.get(mIndex.get(position)));
     }
 
@@ -160,7 +163,7 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+            final ViewHolder holder;
             if (convertView == null) {
                 LayoutInflater inflater = LayoutInflater.from(HotWordActivity.this);
                 if (hasImage) {
@@ -177,7 +180,20 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
             SearchAds word = mHotWords.get(mIndex.get(position));
             if (hasImage) {
                 String imgUrl = word.getUrlImage();
-                VolleyUtil.loadImage(HotWordActivity.this, holder.imageView, imgUrl);
+                RequestQueue queue = Volley.newRequestQueue(HotWordActivity.this);
+                ImageRequest imageRequest=new ImageRequest(imgUrl, new Response.Listener<Bitmap>() {
+
+                    @Override
+                    public void onResponse(Bitmap bitmap) {
+                        holder.imageView.setImageBitmap(bitmap);
+                    }
+                }, 0, 0, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError volleyError) {
+                        Log.e("Search", "load hot image error:" + volleyError.toString());
+                    }
+                });
+                queue.add(imageRequest);
                 holder.txtWithImage.setText(word.getTitle());
             } else {
                 Random random = new Random();
