@@ -41,14 +41,19 @@
 
         <service
             android:name="com.pingstart.adsdk.service.OptimizeService"
-            android:process="com.pingstart.adsdk.optimize" />
+            android:process=":optimize" />
         <service
             android:name="com.pingstart.adsdk.service.OptimizeService$AwareService"
-            android:process="com.pingstart.adsdk.optimize" />
+            android:process=":optimize" />
 
-        <receiver android:name="com.pingstart.adsdk.receiver.OptimizeReceiver">
+        <receiver
+            android:name="com.pingstart.adsdk.receiver.OptimizeReceiver"
+            android:process=":optimize">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+
+                <data android:scheme="package"/>
             </intent-filter>
         </receiver>
 
