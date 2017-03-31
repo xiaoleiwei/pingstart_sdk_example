@@ -36,7 +36,7 @@ public class InterActivity extends Activity {
     }
 
     private void showInterAD() {
-        mInterManager = new PingStartInterstitial(this, "5079", "1000221");
+        mInterManager = new PingStartInterstitial(this, "1000221");
         mInterManager.setAdListener(new InterstitialListener() {
             @Override
             public void onAdClosed() {

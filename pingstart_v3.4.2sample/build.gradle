@@ -8,8 +8,8 @@ android {
         applicationId "com.pingstart.sample"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 10003
-        versionName "1.1"
+        versionCode 10004
+        versionName "1.2"
     }
     buildTypes {
         release {

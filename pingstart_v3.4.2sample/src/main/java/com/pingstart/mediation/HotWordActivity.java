@@ -88,7 +88,7 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
     }
 
     private void loadHotWord() {
-        mPingStartWord = new PingStartSearch(this, "5079", "1000596");
+        mPingStartWord = new PingStartSearch(this, "1000596");
         mPingStartWord.setAdListener(new SearchAdsListener() {
             @Override
             public void onAdFailed(String error) {
@@ -181,7 +181,7 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
             if (hasImage) {
                 String imgUrl = word.getUrlImage();
                 RequestQueue queue = Volley.newRequestQueue(HotWordActivity.this);
-                ImageRequest imageRequest=new ImageRequest(imgUrl, new Response.Listener<Bitmap>() {
+                ImageRequest imageRequest = new ImageRequest(imgUrl, new Response.Listener<Bitmap>() {
 
                     @Override
                     public void onResponse(Bitmap bitmap) {
@@ -203,7 +203,7 @@ public class HotWordActivity extends Activity implements AdapterView.OnItemClick
             //注册点击
             mPingStartWord.registerSearchAdsClickListener(HotWordActivity.this, convertView, word);
             //注册展示
-            mPingStartWord.registerSearchAdsImpression(HotWordActivity.this, word);
+            mPingStartWord.registerSearchAdsImpression(word);
             return convertView;
         }
 

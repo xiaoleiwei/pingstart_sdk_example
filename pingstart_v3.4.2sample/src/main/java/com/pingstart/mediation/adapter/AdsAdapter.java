@@ -24,10 +24,10 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdViewHolder> {
     private List<BaseNativeAd> mAds;
     private PingStartMultiple mNativeAdsManager;
 
-    public AdsAdapter(Context context, List<BaseNativeAd> ads,PingStartMultiple nativeAdsManager) {
+    public AdsAdapter(Context context, List<BaseNativeAd> ads, PingStartMultiple nativeAdsManager) {
         this.mContext = context;
         this.mAds = ads;
-        this.mNativeAdsManager=nativeAdsManager;
+        this.mNativeAdsManager = nativeAdsManager;
     }
 
     @Override
@@ -39,25 +39,25 @@ public class AdsAdapter extends RecyclerView.Adapter<AdsAdapter.AdViewHolder> {
 
     @Override
     public void onBindViewHolder(AdViewHolder holder, int position) {
-            BaseNativeAd ad = mAds.get(position);
-            if (ad != null) {
-                if (ad.getNetworkName().equalsIgnoreCase("facebook")) {
-                    holder.imageView.setVisibility(View.GONE);
-                    holder.mediaView.setVisibility(View.VISIBLE);
-                    FacebookNativeAd nativeAd = (FacebookNativeAd) ad;
-                    holder.mediaView.setNativeAd(nativeAd.getNativeAd());
-                } else {
-                    holder.imageView.setVisibility(View.VISIBLE);
-                    holder.mediaView.setVisibility(View.GONE);
-                    ad.displayCoverImage(mContext, holder.imageView);
-                }
-                holder.titleView.setText(ad.getTitle());
-                holder.contentView.setText(ad.getDescription());
-                holder.actionView.setText(ad.getAdCallToAction());
-                if (mNativeAdsManager != null) {
-                    mNativeAdsManager.registerNativeView(ad, holder.actionView);
-                }
+        BaseNativeAd ad = mAds.get(position);
+        if (ad != null) {
+            if (ad.getNetworkName().equalsIgnoreCase("facebook")) {
+                holder.imageView.setVisibility(View.GONE);
+                holder.mediaView.setVisibility(View.VISIBLE);
+                FacebookNativeAd nativeAd = (FacebookNativeAd) ad;
+                holder.mediaView.setNativeAd(nativeAd.getNativeAd());
+            } else {
+                holder.imageView.setVisibility(View.VISIBLE);
+                holder.mediaView.setVisibility(View.GONE);
+                ad.displayCoverImage(holder.imageView);
             }
+            holder.titleView.setText(ad.getTitle());
+            holder.contentView.setText(ad.getDescription());
+            holder.actionView.setText(ad.getAdCallToAction());
+            if (mNativeAdsManager != null) {
+                mNativeAdsManager.registerNativeView(ad, holder.actionView);
+            }
+        }
 
     }
 

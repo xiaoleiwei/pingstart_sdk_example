@@ -35,7 +35,7 @@ public class BannerActivity extends Activity {
         });
 
         mBannerFrameLayout = (FrameLayout) findViewById(R.id.adver_layout);
-        mBannerManager = new PingStartBanner(this, "5079", "1000220");
+        mBannerManager = new PingStartBanner(this, "1000220");
         mBannerManager.setAdListener(new BannerListener() {
 
             @Override

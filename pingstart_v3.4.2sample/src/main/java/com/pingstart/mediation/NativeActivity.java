@@ -80,7 +80,7 @@ public class NativeActivity extends Activity {
                 contentTextView.setText("");
                 mActionButton.setText("");
                 adImageView.setImageBitmap(null);
-                pingStartNative = new PingStartNative(NativeActivity.this, "5079", "1000223");
+                pingStartNative = new PingStartNative(NativeActivity.this, "1000223");
                 pingStartNative.setAdListener(new NativeListener() {
                     @Override
                     public void onAdLoaded(BaseNativeAd ad) {
@@ -123,7 +123,7 @@ public class NativeActivity extends Activity {
                                 titleTextView.setText(ad.getTitle());
                                 contentTextView.setText(ad.getDescription());
                                 mActionButton.setText(ad.getAdCallToAction());
-                                ad.displayCoverImage(NativeActivity.this, adImageView);
+                                ad.displayCoverImage(adImageView);
                                 pingStartNative.registerNativeView(mActionButton);
                             }
                         }

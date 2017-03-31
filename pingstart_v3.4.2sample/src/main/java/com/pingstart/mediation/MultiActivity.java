@@ -47,7 +47,7 @@ public class MultiActivity extends Activity {
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mNativeAdsManager = new PingStartMultiple(this, "5079", "1000953", 10);
+        mNativeAdsManager = new PingStartMultiple(this, "1000953", 10);
         mNativeAdsManager.setListener(new MultipleListener() {
             @Override
             public void onAdLoaded(List<BaseNativeAd> ads) {
