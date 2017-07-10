@@ -48,12 +48,12 @@ public class MainActivity extends Activity {
             }
         });
 
-        findViewById(R.id.show_search_ad).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, HotWordActivity.class));
-            }
-        });
+//        findViewById(R.id.show_search_ad).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(MainActivity.this, HotWordActivity.class));
+//            }
+//        });
     }
 
 
