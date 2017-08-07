@@ -60,6 +60,15 @@
             android:layout_marginTop="28dp"
             android:text="SHOW MULTI" />
 
+        <Button
+            android:id="@+id/show_pingstart_adswall"
+            style="@style/CommonButtonTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:text="SHOW ADSWALL"/>
+
         <!--<Button-->
             <!--android:id="@+id/show_search_ad"-->
             <!--style="@style/CommonButtonTheme"-->

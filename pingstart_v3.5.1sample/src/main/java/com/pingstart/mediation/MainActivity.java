@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
-import com.pingstart.adsdk.PingStartSDK;
+import com.pingstart.adsdk.*;
 
 
 public class MainActivity extends Activity {
@@ -45,6 +45,13 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, MultiActivity.class));
+            }
+        });
+
+        findViewById(R.id.show_pingstart_adswall).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, AdsWallActivity.class));
             }
         });
 

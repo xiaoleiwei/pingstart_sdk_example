@@ -22,6 +22,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
         <activity
             android:name="com.facebook.ads.InterstitialAdActivity"
@@ -92,6 +93,8 @@
         <activity
             android:name="com.pingstart.adsdk.InterstitialAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
+        <activity android:name="com.pingstart.adsdk.AdsWallActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".BannerActivity"
             android:label="@string/app_name"/>
@@ -103,6 +106,8 @@
             android:label="@string/app_name"/>
         <activity
             android:name=".MultiActivity"
+            android:label="@string/app_name"/>
+        <activity android:name=".AdsWallActivity"
             android:label="@string/app_name"/>
         <!--<activity android:name=".HotWordActivity"/>-->
     </application>
