@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@mipmap/background"
-    android:orientation="vertical">
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@mipmap/background"
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,14 +13,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="15dp"
-            android:background="@mipmap/logo" />
+            android:background="@mipmap/logo"/>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="57dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="57dp"
         android:descendantFocusability="blocksDescendants"
         android:gravity="center_horizontal"
         android:orientation="vertical">
@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="SHOW BANNER" />
+            android:text="SHOW BANNER"/>
 
         <Button
             android:id="@+id/show_inter_ad"
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="28dp"
-            android:text="SHOW INTER" />
+            android:text="SHOW INTER"/>
 
         <Button
             android:id="@+id/show_native_ad"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="28dp"
-            android:text="SHOW NATIVE" />
+            android:text="SHOW NATIVE"/>
 
         <Button
             android:id="@+id/show_multi_ad"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="28dp"
-            android:text="SHOW MULTI" />
+            android:text="SHOW MULTI"/>
 
         <Button
             android:id="@+id/show_pingstart_adswall"
@@ -69,23 +69,32 @@
             android:layout_marginTop="28dp"
             android:text="SHOW ADSWALL"/>
 
-        <!--<Button-->
-            <!--android:id="@+id/show_search_ad"-->
-            <!--style="@style/CommonButtonTheme"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="28dp"-->
-            <!--android:text="SHOW Search" />-->
+        <Button
+            android:id="@+id/show_pingstart_video"
+            style="@style/CommonButtonTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="28dp"
+            android:text="SHOW VIDEO"/>
 
         <!--<Button-->
-            <!--android:id="@+id/show_video_ad"-->
-            <!--style="@style/CommonButtonTheme"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:layout_gravity="center"-->
-            <!--android:layout_marginTop="28dp"-->
-            <!--android:text="SHOW Video" />-->
+        <!--android:id="@+id/show_search_ad"-->
+        <!--style="@style/CommonButtonTheme"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="28dp"-->
+        <!--android:text="SHOW Search" />-->
+
+        <!--<Button-->
+        <!--android:id="@+id/show_video_ad"-->
+        <!--style="@style/CommonButtonTheme"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_marginTop="28dp"-->
+        <!--android:text="SHOW Video" />-->
     </LinearLayout>
 
 </LinearLayout>

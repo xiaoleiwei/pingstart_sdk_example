@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.pingstart.adsdk.*;
+import com.pingstart.adsdk.mediation.PingStartVideo;
 
 
 public class MainActivity extends Activity {
@@ -16,6 +17,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         PingStartSDK.initializeSdk(this, "5079");
+        PingStartVideo.initializeRewardedVideo(this);
         initView();
     }
 
@@ -48,19 +50,19 @@ public class MainActivity extends Activity {
             }
         });
 
-        findViewById(R.id.show_pingstart_adswall).setOnClickListener(new View.OnClickListener(){
+        findViewById(R.id.show_pingstart_adswall).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, AdsWallActivity.class));
             }
         });
 
-//        findViewById(R.id.show_search_ad).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(MainActivity.this, HotWordActivity.class));
-//            }
-//        });
+        findViewById(R.id.show_pingstart_video).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, VideoActivity.class));
+            }
+        });
     }
 
 

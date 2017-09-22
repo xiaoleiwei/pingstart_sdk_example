@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
 
     <application
@@ -22,7 +23,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
         <activity
             android:name="com.facebook.ads.InterstitialAdActivity"
@@ -93,7 +93,8 @@
         <activity
             android:name="com.pingstart.adsdk.InterstitialAdActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
-        <activity android:name="com.pingstart.adsdk.AdsWallActivity"
+        <activity
+            android:name="com.pingstart.adsdk.AdsWallActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"/>
         <activity
             android:name=".BannerActivity"
@@ -107,9 +108,13 @@
         <activity
             android:name=".MultiActivity"
             android:label="@string/app_name"/>
-        <activity android:name=".AdsWallActivity"
+        <activity
+            android:name=".AdsWallActivity"
             android:label="@string/app_name"/>
-        <!--<activity android:name=".HotWordActivity"/>-->
+        <!-- <activity android:name=".HotWordActivity"/> -->
+        <activity android:name=".VideoActivity">
+        </activity>
+        <activity android:name="com.pingstart.adsdk.VideoAdActivity"/>
     </application>
 
 </manifest>
