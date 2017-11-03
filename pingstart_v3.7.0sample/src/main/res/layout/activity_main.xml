@@ -58,6 +58,24 @@
                 android:text="SHOW NATIVE" />
 
             <Button
+                android:id="@+id/show_mraid_banner"
+                style="@style/CommonButtonTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="28dp"
+                android:text="MRAID BANNER" />
+
+            <Button
+                android:id="@+id/show_mraid_interstitial"
+                style="@style/CommonButtonTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="28dp"
+                android:text="MRAID INTER" />
+
+            <Button
                 android:id="@+id/show_multi_ad"
                 style="@style/CommonButtonTheme"
                 android:layout_width="match_parent"
@@ -83,23 +101,7 @@
             <!--android:layout_gravity="center"-->
             <!--android:layout_marginTop="28dp"-->
             <!--android:text="SHOW VIDEO" />-->
-            <Button
-                android:id="@+id/show_mraid_banner"
-                style="@style/CommonButtonTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="28dp"
-                android:text="MRAID BANNER" />
 
-            <Button
-                android:id="@+id/show_mraid_interstitial"
-                style="@style/CommonButtonTheme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="28dp"
-                android:text="MRAID INTER" />
 
             <!--<Button-->
             <!--android:id="@+id/show_search_ad"-->
