@@ -4,10 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
-import com.pingstart.adsdk.*;
-import com.pingstart.adsdk.mediation.PingStartVideo;
+import com.pingstart.adsdk.PingStartSDK;
 
 
 public class MainActivity extends Activity {
@@ -16,8 +14,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        PingStartSDK.initializeSdk(this, "5079");
-        PingStartVideo.initializeRewardedVideo(this);
+        PingStartSDK.initializeSdk(this, "5079", "5079_55");
         initView();
     }
 
@@ -57,10 +54,16 @@ public class MainActivity extends Activity {
             }
         });
 
-        findViewById(R.id.show_pingstart_video).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.show_mraid_banner).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VideoActivity.class));
+                startActivity(new Intent(MainActivity.this, MraidBannerActivity.class));
+            }
+        });
+        findViewById(R.id.show_mraid_interstitial).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MraidInterActivity.class));
             }
         });
     }
