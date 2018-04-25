@@ -29,12 +29,15 @@ public class BannerActivity extends Activity {
         findViewById(R.id.btn_banner_ad).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBanner.destroy();
-                mBanner.loadBanner();
+                loadBanner();
             }
         });
 
         mBannerFrameLayout = (FrameLayout) findViewById(R.id.adver_layout);
+        loadBanner();
+    }
+
+    private void loadBanner() {
         mBanner = new PingStartBanner(this, "1007654");
         mBanner.setAdListener(new BannerListener() {
 
